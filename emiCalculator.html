@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EMI Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <script>
+        function AmountChange() {
+            document.getElementById("txtAmount").value = document.getElementById("amountRange").value;
+        }
+        function YearChange(){
+            document.getElementById("txtYears").value = document.getElementById("yearRange").value;
+        }
+        function InterestChange(){
+            document.getElementById("txtInterest").value = document.getElementById("interestRange").value;
+        }
+        
+        function UpdateAmount(){
+            document.getElementById("amountRange").value = document.getElementById("txtAmount").value;
+        }
+        function UpdateYear(){
+            document.getElementById("yearRange").value = document.getElementById("txtYears").value;
+        }
+        function UpdateInterest(){
+            document.getElementById("interestRange").value = document.getElementById("txtInterest").value;
+        }
+        function CalculateClick(){
+            var p = parseInt(document.getElementById("txtAmount").value);
+            console.log(p);
+            var r = parseFloat(document.getElementById("txtInterest").value);
+            console.log(r);
+            var n = parseInt(document.getElementById("txtYears").value);
+            n=n*12;
+            console.log(n);
+            var emi = "";
+            var interest = (p * (r * 0.01)) / n;
+            // emi = p*r*(1+r)^n[(1+r)^n-1];
+            emi =  ((p / n) + interest).toFixed(2);
+  
+            console.log(emi);
+            document.getElementById("result").innerHTML= `Your Monthly EMI will be ₹${emi} per month`;
+             
+        }
+    </script>
+    <style>
+        .totalBox{
+            margin: 60px;
+            border: 1px solid rgb(177, 219, 219);
+            box-shadow: 2px 2px 42px 2px 0.2;
+            padding: 30px;
+            padding-left: 100px;
+        }
+        .btnn {
+            padding: 7px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgb(8, 62, 97);
+            color: white;
+            margin-top: 10px;
+            
+        }
+        #txtYears {
+            width: 45px;
+            padding: 7px;
+            padding-left: 15px;
+        }
+        #txtInterest {
+            width: 45px;
+            padding: 7px;
+            padding-left: 12px;
+        }
+        #txtAmount {
+            width: 100px;
+            padding: 7px;
+        }
+    </style>
+</head>
+
+<body class="container-fluid">
+    <div class="totalBox">
+        <div class="row mt-4">
+            <div class="col">
+                <div class="input-group">
+                    Amount you need <!--<span class="input-group-text">&#8377;</span> --><input type="text" onchange="UpdateAmount()" id="txtAmount" class="form-element">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    for <input type="text" id="txtYears" class="form-element" onchange="UpdateYear()"> years
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    Interest rate <input type="text" id="txtInterest" class="form-element" onchange="UpdateInterest()"> %
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col">
+                50,000 <input type="range" id="amountRange" min="50000" max="400000" onchange="AmountChange()"
+                    value="50000"> 400000
+            </div>
+            <div class="col">
+                1 <input type="range" min="1" id="yearRange" onchange="YearChange()" value="1" max="5"> 5
+            </div>
+            <div class="col">
+                10.5% <input type="range" min="10" id="interestRange" onchange="InterestChange()" max="21" step="0.5" value="10.5"> 21%
+            </div>
+        </div>
+        <div>
+            <button onclick="CalculateClick()" class="btnn">CALCULATE</button>
+        </div>
+        <div class="result">
+            <p id="result"></p>
+        </div>
+    </div>
+</body>
+
+</html>
